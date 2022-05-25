@@ -1,3 +1,3 @@
 # crystallux-ui
 
-A Component Framework for SolidJS.
+A simple and lightweight Component Framework for SolidJS based on MUI with statically generated styles via css modules.

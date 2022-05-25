@@ -1,10 +1,22 @@
 {
   "name": "crystallux-ui",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.jsx",
+  "module": "./dist/index.jsx",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "solid": "./dist/index.jsx",
+      "import": "./dist/index.jsx"
+    }
+  },
   "version": "0.1.0",
   "description": "A Component Framework for SolidJS",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf \"./dist/*\" && tsc && copyfiles -u 1 \"./src/**/*.module.css\" \"./dist\""
   },
   "repository": {
     "type": "git",
@@ -23,5 +35,21 @@
   "bugs": {
     "url": "https://github.com/otonashixav/crystallux-ui/issues"
   },
-  "homepage": "https://github.com/otonashixav/crystallux-ui#readme"
+  "homepage": "https://github.com/otonashixav/crystallux-ui#readme",
+  "devDependencies": {
+    "@types/eslint": "^8.4.2",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.6.2",
+    "rimraf": "^3.0.2",
+    "solid-js": "^1.4.2",
+    "typescript": "^4.7.2",
+    "typescript-plugin-css-modules": "^3.4.0"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.4.2"
+  }
 }
