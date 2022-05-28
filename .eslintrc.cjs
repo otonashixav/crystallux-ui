@@ -1,5 +1,6 @@
-/** @type {import("@types/eslint").Linter.Config} */
 /* eslint-env node */
+
+/** @type {import("@types/eslint").Linter.Config} */
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
@@ -10,7 +11,6 @@ module.exports = {
     "prettier",
   ],
   rules: {
-    "@typescript-eslint/ban-types": ["error", { types: { "{}": false } }],
-    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
   },
 };

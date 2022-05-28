@@ -1,21 +1,19 @@
-import { Component, ComponentProps, JSX } from "solid-js";
+import { ComponentProps, JSX } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import { combineProps } from "../../utils/combineProps";
+import { AnyComponent } from "../../types";
+import { combineWithPassedProps } from "../../utils";
 import styles from "./Box.module.css";
 
-interface BoxRequiredProps {}
-type BoxProps<
-  T extends keyof JSX.IntrinsicElements | Component<BoxRequiredProps> = "div"
-> = ComponentProps<T> & {
-  component?: T;
-};
-const defaultProps = { component: "div", class: styles.Box } as const;
+const defaultProps: Partial<BoxProps> = { component: "div", class: styles.Box };
 Box.defaultProps = defaultProps;
 
+export type BoxProps<T extends AnyComponent = "div"> = ComponentProps<T> & {
+  component?: T;
+};
 export default Box;
-export function Box<
-  T extends keyof JSX.IntrinsicElements | Component<BoxRequiredProps> = "div"
->(props: BoxProps<T>): JSX.Element {
-  const combinedProps = combineProps(defaultProps, props);
-  return <Dynamic {...combinedProps} />;
+export function Box<T extends AnyComponent = "div">(
+  props: BoxProps<T>
+): JSX.Element {
+  const allProps = combineWithPassedProps(props, defaultProps);
+  return <Dynamic {...allProps} />;
 }

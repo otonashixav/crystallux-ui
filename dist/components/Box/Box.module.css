@@ -1,4 +1,7 @@
 .Box {
   display: block;
-  position: absolute;
+  position: absolute
 }
+.Box:hover {
+    flex: 1;
+  }
