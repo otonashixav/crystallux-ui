@@ -1,6 +1,7 @@
-.Box {
+.box {
   display: block;
   position: absolute;
+
   &:hover {
     flex: 1;
   }

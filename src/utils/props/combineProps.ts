@@ -111,8 +111,6 @@ export function combineProps<T extends [unknown, ...unknown[]]>(
 export function combineProps<T extends [Props, ...Props[]]>(
   ...sources: T
 ): MergeProps<T> {
-  sources = sources.filter((s) => s) as T;
-  if (sources.length === 0) return {} as MergeProps<T>;
   if (sources.length === 1) return sources[0] as MergeProps<T>;
   return new Proxy(
     {

@@ -4,7 +4,7 @@ import { AnyComponent } from "../../types";
 import { combineWithPassedProps } from "../../utils";
 import styles from "./Box.module.css";
 
-const defaultProps: Partial<BoxProps> = { component: "div", class: styles.Box };
+const defaultProps = { component: "div", class: styles.box } as const;
 Box.defaultProps = defaultProps;
 
 export type BoxProps<T extends AnyComponent = "div"> = ComponentProps<T> & {
