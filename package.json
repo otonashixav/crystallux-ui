@@ -3,13 +3,13 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/index.jsx",
-  "module": "./dist/index.jsx",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "solid": "./dist/index.jsx",
-      "import": "./dist/index.jsx"
+      "import": "./dist/index.js"
     }
   },
   "version": "0.1.0",
@@ -17,7 +17,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pnpm clean && pnpm buildTs && pnpm buildCss",
-    "buildTs": "tsc",
+    "buildTs": "tsc && node -e \"require('fs').copyFileSync('./dist/index.js', './dist/index.jsx');\"",
     "buildCss": "postcss \"./src/**/*.css\" --base ./src --dir ./dist",
     "clean": "rimraf \"./dist/*\"",
     "lint": "pnpm lintTs && pnpm lintCss",
