@@ -9,14 +9,14 @@ import {
 
 export const PassedPropsContext = createContext();
 
-export function usePassedProps(): Record<string | symbol, unknown>[] {
-  const passableProps: Record<string | symbol, unknown>[] = [];
+export function usePassedProps(): object[] {
+  const passableProps: object[] = [];
   let owner = getOwner();
   (owner!.context ||= {})[PassedPropsContext.id] = null;
   for (owner = owner!.owner; owner; owner = owner.owner) {
     if (!owner.context) continue;
     const props = owner.context[PassedPropsContext.id] as
-      | Record<string | symbol, unknown>
+      | object
       | undefined
       | null;
     if (props === null) break;

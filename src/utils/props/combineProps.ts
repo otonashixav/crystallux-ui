@@ -1,5 +1,13 @@
 import { MergeProps, $PROXY, JSX } from "solid-js";
 import { usePassedProps } from "./passProps";
+type Props = { readonly [K in string | symbol]?: unknown } & {
+  readonly [E in `on${string}`]?: JSX.EventHandlerUnion<Element, Event>;
+} & {
+  readonly classList?: { [x: string]: boolean | undefined; [x: symbol]: never };
+  readonly class?: string;
+  readonly style?: JSX.CSSProperties | string;
+  readonly ref?: (ref: unknown) => void;
+};
 
 function trueFn() {
   return true;
@@ -36,21 +44,14 @@ const propTraps: ProxyHandler<{
   },
 };
 
-type Props = { readonly [x: string | symbol]: unknown } & {
-  readonly [E in `on${string}`]?: JSX.EventHandlerUnion<Element, Event>;
-} & {
-  readonly classList?: { [x: string]: boolean | undefined; [x: symbol]: never };
-  readonly class?: string;
-  readonly style?: JSX.CSSProperties | string;
-};
-
 function isEventHandler(property: string): property is `on${string}` {
   return property.startsWith("on");
 }
 function combineHandlers(
   sources: Props[],
   handlerName: `on${string}`
-): JSX.EventHandler<Element, Event> {
+): JSX.EventHandlerUnion<Element, Event> | undefined {
+  if (sources.length === 1) return sources[0][handlerName];
   return (event) => {
     let immediatePropagationStopped = false;
     const stopImmediatePropagation = event.stopImmediatePropagation;
@@ -96,7 +97,10 @@ function parseStyle(style: string | JSX.CSSProperties): JSX.CSSProperties {
   }
   return styleObject;
 }
-function combineStyles(sources: Props[]): JSX.CSSProperties {
+function combineStyles(
+  sources: Props[]
+): JSX.CSSProperties | string | undefined {
+  if (sources.length === 1) return sources[0].style;
   const combinedStyles: JSX.CSSProperties = {};
   for (const source of sources) {
     const style = source.style;
@@ -104,14 +108,13 @@ function combineStyles(sources: Props[]): JSX.CSSProperties {
   }
   return combinedStyles;
 }
-
-export function combineProps<T extends [unknown, ...unknown[]]>(
-  ...sources: T
-): MergeProps<T>;
-export function combineProps<T extends [Props, ...Props[]]>(
-  ...sources: T
-): MergeProps<T> {
-  if (sources.length === 1) return sources[0] as MergeProps<T>;
+function combineRefs(sources: Props[]): ((ref: unknown) => void) | undefined {
+  if (sources.length === 1) return sources[0].ref;
+  return (ref) => {
+    for (const source of sources) source.ref && source.ref(ref);
+  };
+}
+export function combineProps<T extends Props[]>(...sources: T): MergeProps<T> {
   return new Proxy(
     {
       get(property) {
@@ -120,6 +123,7 @@ export function combineProps<T extends [Props, ...Props[]]>(
         if (property === "class") return undefined;
         if (property === "classList") return combineClasses(sources);
         if (property === "style") return combineStyles(sources);
+        if (property === "ref") return combineRefs(sources);
         for (let i = sources.length - 1; i >= 0; i--) {
           const source = sources[i];
           const v = source[property];
@@ -149,6 +153,9 @@ export function combineProps<T extends [Props, ...Props[]]>(
   ) as unknown as MergeProps<T>;
 }
 
-export function combineWithPassedProps<T>(props: T, defaultProps?: unknown): T {
-  return combineProps(defaultProps, ...usePassedProps(), props) as T;
+export function combineWithPassedProps<T extends object>(
+  props: T,
+  ...defaultProps: [] | [defaultProps: Props]
+): T {
+  return combineProps(...defaultProps, ...usePassedProps(), props) as T;
 }
