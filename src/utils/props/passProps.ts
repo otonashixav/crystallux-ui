@@ -4,6 +4,7 @@ import {
   FlowProps,
   getOwner,
   JSX,
+  mergeProps,
   splitProps,
 } from "solid-js";
 
@@ -25,8 +26,18 @@ export function usePassedProps(): object[] {
   return passableProps;
 }
 
-export function PassProps<T>(props: FlowProps<T>): JSX.Element {
-  const [, value] = splitProps(props, ["children"]);
+export function PassProps<T>(
+  props: FlowProps<T & { $children?: JSX.Element }>
+): JSX.Element {
+  const [, propsWithoutChildren] = splitProps(props, ["children", "$children"]);
+  const value =
+    "$children" in props
+      ? mergeProps(propsWithoutChildren, {
+          get children() {
+            return props.$children;
+          },
+        })
+      : propsWithoutChildren;
   return createComponent(PassedPropsContext.Provider, {
     value,
     get children() {

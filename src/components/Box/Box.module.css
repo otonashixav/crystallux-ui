@@ -1,8 +1,7 @@
 .box {
-  display: block;
-  position: absolute;
+  background-color: red;
 
   &:hover {
-    flex: 1;
+    align-items: border;
   }
 }
