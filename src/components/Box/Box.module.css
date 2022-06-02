@@ -1,7 +1,9 @@
 .box {
   background-color: red;
+  align-items: baseline;
 
   &:hover {
-    align-items: border;
+    align-items: normal;
+    background-color: aliceblue;
   }
 }

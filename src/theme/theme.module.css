@@ -1,3 +1,65 @@
 :root {
-  --a: #1a2;
+  /* surface */
+  --cl-color-surface: #000;
+  --cl-color-on-surface: #000;
+  --cl-color-surface-variant: #000;
+  --cl-color-on-surface-variant: #000;
+  --cl-color-surface-tint: #000;
+
+  /* primary */
+  --cl-color-primary: #000;
+  --cl-color-on-primary: #000;
+  --cl-color-primary-container: #000;
+  --cl-color-on-primary-container: #000;
+
+  /* secondary */
+  --cl-color-secondary: #000;
+  --cl-color-on-secondary: #000;
+  --cl-color-secondary-container: #000;
+  --cl-color-on-secondary-container: #000;
+
+  /* tertiary */
+  --cl-color-tertiary: #000;
+  --cl-color-on-tertiary: #000;
+  --cl-color-tertiary-container: #000;
+  --cl-color-on-tertiary-container: #000;
+
+  /* inverse */
+  --cl-color-inverse-surface: #000;
+  --cl-color-inverse-on-surface: #000;
+  --cl-color-inverse-primary: #000;
+
+  /* state */
+  --cl-color-state-overlay: 0;
+  --cl-state-hover-opacity: 0;
+  --cl-state-focus-opacity: 0;
+  --cl-state-pressed-opacity: 0;
+  --cl-state-dragged-opacity: 0;
+
+  /* elevation */
+  --cl-color-elevation-overlay: 0;
+}
+
+* {
+  --cl-elevation-global: max(var(--cl-elevation-global-1, 0), var(--cl-elevation-global-2, 0));
+}
+
+:not(.elevate) > .elevate {
+  --cl-elevation-global-1: calc(var(--cl-elevation-local, 0) + var(--cl-elevation-global-2, 0));
+
+  & > * {
+    --cl-elevation-global-2: calc(var(--cl-elevation-local, 0) + var(--cl-elevation-global-1, 0));
+  }
+
+  & > .elevate {
+    & > * {
+      --cl-elevation-global-1: calc(var(--cl-elevation-local, 0) + var(--cl-elevation-global-2, 0));
+    }
+
+    & > .elevate {
+      & > * {
+        --cl-elevation-global-2: calc(var(--cl-elevation-local, 0) + var(--cl-elevation-global-1, 0));
+      }
+    }
+  }
 }

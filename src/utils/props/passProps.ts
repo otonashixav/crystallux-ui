@@ -10,11 +10,12 @@ import {
 
 export const PassedPropsContext = createContext();
 
-export function usePassedProps(): object[] {
+export function consumePassedProps(): object[] {
   const passableProps: object[] = [];
   let owner = getOwner();
-  (owner!.context ||= {})[PassedPropsContext.id] = null;
-  for (owner = owner!.owner; owner; owner = owner.owner) {
+  if (!owner) return passableProps;
+  (owner.context ||= {})[PassedPropsContext.id] = null;
+  for (owner = owner.owner; owner; owner = owner.owner) {
     if (!owner.context) continue;
     const props = owner.context[PassedPropsContext.id] as
       | object
@@ -27,7 +28,7 @@ export function usePassedProps(): object[] {
 }
 
 export function PassProps<T>(
-  props: FlowProps<T & { $children?: JSX.Element }>
+  props: FlowProps<T> & { $children?: JSX.Element }
 ): JSX.Element {
   const [, propsWithoutChildren] = splitProps(props, ["children", "$children"]);
   const value =

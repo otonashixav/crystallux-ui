@@ -1,47 +1,12 @@
-import { MergeProps, $PROXY, JSX } from "solid-js";
-import { usePassedProps } from "./passProps";
+import { MergeProps, JSX } from "solid-js";
+import { propTraps } from "./propTraps";
 type Props = { readonly [K in string | symbol]?: unknown } & {
   readonly [E in `on${string}`]?: JSX.EventHandlerUnion<Element, Event>;
 } & {
-  readonly classList?: { [x: string]: boolean | undefined; [x: symbol]: never };
+  readonly classList?: { [x: string]: boolean | undefined };
   readonly class?: string;
   readonly style?: JSX.CSSProperties | string;
   readonly ref?: (ref: unknown) => void;
-};
-
-function trueFn() {
-  return true;
-}
-
-// propTraps from solid-js core
-const propTraps: ProxyHandler<{
-  get: (k: string | symbol) => unknown;
-  has: (k: string | symbol) => boolean;
-  keys: () => string[];
-}> = {
-  get(_, property, receiver) {
-    if (property === $PROXY) return receiver;
-    return _.get(property);
-  },
-  has(_, property) {
-    return _.has(property);
-  },
-  set: trueFn,
-  deleteProperty: trueFn,
-  getOwnPropertyDescriptor(_, property) {
-    return {
-      configurable: true,
-      enumerable: true,
-      get() {
-        return _.get(property);
-      },
-      set: trueFn,
-      deleteProperty: trueFn,
-    };
-  },
-  ownKeys(_) {
-    return _.keys();
-  },
 };
 
 function isEventHandler(property: string): property is `on${string}` {
@@ -73,15 +38,43 @@ function combineHandlers(
     }
   };
 }
-function combineClasses(sources: Props[]): Record<string, boolean | undefined> {
-  const combinedList: Record<string, boolean | undefined> = {};
-  for (const source of sources) {
-    const className = source.class;
-    if (className) combinedList[className] = true;
-    const classList = source.classList;
-    if (classList) Object.assign(combinedList, classList);
+function combineClasses(sources: Props[]) {
+  const classes: string[] = [];
+  for (const { class: className } of sources) {
+    className && classes.push(className);
   }
-  return combinedList;
+  return classes.join(" ");
+}
+function combineClassLists(
+  sources: Props[]
+): Record<string, boolean | undefined> | undefined {
+  if (sources.length === 1) return sources[0].classList;
+  const lists: Record<string, boolean | undefined>[] = [];
+  for (const { classList } of sources) {
+    classList && lists.push(classList);
+  }
+  if (lists.length === 0) return {};
+  if (lists.length === 1) return lists[0];
+  return new Proxy(
+    {
+      get(className) {
+        for (let i = lists.length - 1; i >= 0; i--) {
+          const v = lists[i][className];
+          if (v !== undefined) return v;
+        }
+      },
+      has(className) {
+        for (let i = lists.length - 1; i >= 0; i--) {
+          if (className in lists[i]) return true;
+        }
+        return false;
+      },
+      keys() {
+        return [...new Set(lists.flatMap((s) => Object.keys(s)))];
+      },
+    },
+    propTraps
+  ) as unknown as Record<string, boolean | undefined>;
 }
 const extractStyleRegex = /([^:;\s]+)\s*:\s*([^;]+)/g;
 function parseStyle(style: string | JSX.CSSProperties): JSX.CSSProperties {
@@ -101,12 +94,32 @@ function combineStyles(
   sources: Props[]
 ): JSX.CSSProperties | string | undefined {
   if (sources.length === 1) return sources[0].style;
-  const combinedStyles: JSX.CSSProperties = {};
-  for (const source of sources) {
-    const style = source.style;
-    if (style) Object.assign(combinedStyles, parseStyle(style));
+  const styles: JSX.CSSProperties[] = [];
+  for (const { style } of sources) {
+    style && styles.push(parseStyle(style));
   }
-  return combinedStyles;
+  if (styles.length === 0) return undefined;
+  if (styles.length === 1) return styles[0];
+  return new Proxy(
+    {
+      get(styleName) {
+        for (let i = styles.length - 1; i >= 0; i--) {
+          const v = styles[i][styleName];
+          if (v !== undefined) return v;
+        }
+      },
+      has(styleName) {
+        for (let i = styles.length - 1; i >= 0; i--) {
+          if (styleName in styles[i]) return true;
+        }
+        return false;
+      },
+      keys() {
+        return [...new Set(styles.flatMap((s) => Object.keys(s)))];
+      },
+    },
+    propTraps
+  ) as JSX.CSSProperties;
 }
 function combineRefs(sources: Props[]): ((ref: unknown) => void) | undefined {
   if (sources.length === 1) return sources[0].ref;
@@ -114,19 +127,19 @@ function combineRefs(sources: Props[]): ((ref: unknown) => void) | undefined {
     for (const source of sources) source.ref && source.ref(ref);
   };
 }
+export function combineProps<T extends object[]>(...sources: T): MergeProps<T>;
 export function combineProps<T extends Props[]>(...sources: T): MergeProps<T> {
   return new Proxy(
     {
       get(property) {
         if (typeof property !== "symbol" && isEventHandler(property))
           return combineHandlers(sources, property);
-        if (property === "class") return undefined;
-        if (property === "classList") return combineClasses(sources);
+        if (property === "class") return combineClasses(sources);
+        if (property === "classList") return combineClassLists(sources);
         if (property === "style") return combineStyles(sources);
         if (property === "ref") return combineRefs(sources);
         for (let i = sources.length - 1; i >= 0; i--) {
-          const source = sources[i];
-          const v = source[property];
+          const v = sources[i][property];
           if (v !== undefined) return v;
         }
       },
@@ -134,28 +147,15 @@ export function combineProps<T extends Props[]>(...sources: T): MergeProps<T> {
         if (property === "class") return false;
         for (let i = sources.length - 1; i >= 0; i--) {
           const source = sources[i];
-          if (
-            property in source ||
-            (property === "classList" && "class" in source)
-          )
-            return true;
+          if (property in source) return true;
         }
         return false;
       },
       keys() {
         const keysSet = new Set(sources.flatMap((s) => Object.keys(s)));
-        if (keysSet.has("class")) keysSet.add("classList");
-        keysSet.delete("class");
         return [...keysSet];
       },
     },
     propTraps
   ) as unknown as MergeProps<T>;
-}
-
-export function combineWithPassedProps<T extends object>(
-  props: T,
-  ...defaultProps: [] | [defaultProps: Props]
-): T {
-  return combineProps(...defaultProps, ...usePassedProps(), props) as T;
 }
