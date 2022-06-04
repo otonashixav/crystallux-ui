@@ -1,6 +1,5 @@
 /* eslint-env node */
 
-/** @type {import("@types/eslint").Linter.Config} */
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
@@ -9,7 +8,7 @@ module.exports = {
     "eslint:recommended",
     "prettier",
     "plugin:@typescript-eslint/recommended",
-    "plugin:solid/recommended",
+    "plugin:solid/typescript",
   ],
   rules: {
     "@typescript-eslint/no-non-null-assertion": "off",

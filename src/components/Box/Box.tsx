@@ -1,9 +1,17 @@
 import { ComponentProps, JSX } from "solid-js";
-import { useAllProps } from "../../utils";
-import styles from "./Box.module.css";
+import { omitProps, useAllProps } from "../../utils";
+import { div } from "./styles.module.css";
 
 export type BoxProps = ComponentProps<"div">;
 export function Box(props: BoxProps): JSX.Element {
-  const combinedProps = useAllProps({ props });
-  return <div class={styles.box} {...combinedProps} />;
+  const allProps = useAllProps({ props });
+  const spreadProps = omitProps(allProps, ["class"]);
+  return (
+    <div
+      class={div}
+      style={{ "--cl-elevation-local": 3 }}
+      classList={{ [allProps.class!]: true }}
+      {...spreadProps}
+    />
+  );
 }

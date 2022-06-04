@@ -1,4 +1,4 @@
-import { FlowProps, JSX } from "solid-js";
+import { Accessor } from "solid-js";
 
 export type RGBA = [r: number, g: number, b: number, a: number];
 export type Color =
@@ -15,7 +15,9 @@ export type Color =
   | "tertiaryContainer"
   | "errorContainer"
   | [RGBA, RGBA];
-export interface Theme extends JSX.CSSProperties {}
-export interface ThemeOptions {}
-export function ThemeProvider(props: FlowProps<{ theme: Theme }>) {}
-export function createTheme(): Theme {}
+
+export function useTheme(options: {
+  elevation?: Accessor<number>;
+  applyElevation?: boolean;
+  
+}) {}

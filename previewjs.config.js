@@ -1,12 +1,15 @@
 /* eslint-env node */
 module.exports = {
+  rootDirPath: ".",
   wrapper: {
     path: "__previewjs__/Wrapper.tsx",
     componentName: "Wrapper",
   },
   vite: {
     css: {
-      postcss: require("./postcss.config.cjs"),
+      modules: {
+        root: ".",
+      },
     },
   },
 };
