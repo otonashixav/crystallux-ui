@@ -1,18 +1,21 @@
 :root {
   /* surface */
-  --cl-color-surface: #000;
-  --cl-color-on-surface: #000;
-  --cl-color-surface-variant: #000;
-  --cl-color-on-surface-variant: #000;
-  --cl-color-surface-tint: #000;
+  --cl-color-surface-r: var(--cl-color-surface-r-theme, 0);
+  --cl-color-surface-g: var(--cl-color-surface-g-theme, 0);
+  --cl-color-surface-b: var(--cl-color-surface-b-theme, 0);
+  --cl-color-surface-a: var(--cl-color-surface-a-theme, 1);
+  --cl-color-on-surface-r: var(--cl-color-on-surface-r-theme, 0);
+  --cl-color-on-surface-g: var(--cl-color-on-surface-g-theme, 0);
+  --cl-color-on-surface-b: var(--cl-color-on-surface-b-theme, 0);
+  --cl-color-on-surface-a: var(--cl-color-on-surface-a-theme, 1);
+
+  /* surface-variant */
 
   /* primary */
   --cl-color-primary: #000;
   --cl-color-on-primary: #000;
   --cl-color-primary-container: #000;
   --cl-color-on-primary-container: #000;
-
-  /* secondary */
   --cl-color-secondary: #000;
   --cl-color-on-secondary: #000;
   --cl-color-secondary-container: #000;
@@ -28,24 +31,10 @@
   --cl-color-inverse-surface: #000;
   --cl-color-inverse-on-surface: #000;
   --cl-color-inverse-primary: #000;
-
-  /* state */
-  --cl-color-state-overlay: 0;
-  --cl-state-hover-opacity: 0;
-  --cl-state-focus-opacity: 0;
-  --cl-state-pressed-opacity: 0;
-  --cl-state-dragged-opacity: 0;
-
-  /* elevation */
-  --cl-color-elevation-overlay: 0;
 }
 
 * {
   --cl-elevation-global: max(var(--cl-elevation-global-1, 0), var(--cl-elevation-global-2, 0));
-}
-
-.elevate {
-  color: blue;
 }
 
 :not(.elevate) > .elevate {

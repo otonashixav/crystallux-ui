@@ -12,7 +12,7 @@ export function useAllProps<T extends object, D extends T>({
 }: {
   props?: T;
   defaultProps?: D;
-}): MergeProps<[T, D]> {
+} = {}): MergeProps<[T, D]> {
   const allProps = consumePassedProps();
   props && allProps.push(props);
   defaultProps && allProps.unshift(defaultProps);

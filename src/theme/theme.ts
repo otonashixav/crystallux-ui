@@ -1,5 +1,4 @@
 import { Accessor } from "solid-js";
-
 export type RGBA = [r: number, g: number, b: number, a: number];
 export type Color =
   | "surface"
@@ -19,5 +18,4 @@ export type Color =
 export function useTheme(options: {
   elevation?: Accessor<number>;
   applyElevation?: boolean;
-  
 }) {}
