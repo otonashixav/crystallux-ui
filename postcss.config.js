@@ -43,7 +43,6 @@ module.exports = {
           const blendMatch = decl.value.match(
             /^--blend\(var\(([^ ,()]*)\) *, *var\(([^ ,()]*)\)\)$/
           );
-          console.log(decl.value);
           if (blendMatch) {
             const [r1, g1, b1, a1] = getVars(blendMatch[1]);
             const [r2, g2, b2, a2] = getVars(blendMatch[2]);
