@@ -1,13 +1,6 @@
 :root {
   /* surface */
-  --cl-color-surface-r: var(--cl-color-surface-r-theme, 0);
-  --cl-color-surface-g: var(--cl-color-surface-g-theme, 0);
-  --cl-color-surface-b: var(--cl-color-surface-b-theme, 0);
-  --cl-color-surface-a: var(--cl-color-surface-a-theme, 1);
-  --cl-color-on-surface-r: var(--cl-color-on-surface-r-theme, 0);
-  --cl-color-on-surface-g: var(--cl-color-on-surface-g-theme, 0);
-  --cl-color-on-surface-b: var(--cl-color-on-surface-b-theme, 0);
-  --cl-color-on-surface-a: var(--cl-color-on-surface-a-theme, 1);
+  --cl-color-surface: var(--cl-color-theme-surface, #000);
 
   /* surface-variant */
 

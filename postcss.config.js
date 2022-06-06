@@ -1,11 +1,12 @@
 /* eslint-env node */
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 const postcssPresetEnv = require("postcss-preset-env");
 
 const processed = Symbol();
 const getProps = (name) => [..."rgba"].map((part) => `${name}-${part}`);
-const getVars = (name) => [..."rgba"].map((part) => `var(${name}-${part})`);
+const getVars = (name, fallback) =>
+  [..."rgba"].map(
+    (part, i) => `var(${name}-${part}${fallback ? `, ${fallback[i]}` : ""})`
+  );
 const colorToRGBA = (color) => {
   let match;
   let r, g, b, a;
@@ -17,9 +18,10 @@ const colorToRGBA = (color) => {
     [, r, g, b, a = 1] = match
       .filter((v) => v !== undefined)
       .map((h) => parseInt(h, 16));
+    a /= 255;
   } else if (
     (match = color.match(
-      /^rgba?\( *([0-9]+) *, *([0-9]+) *, *([0-9]+) *(?:, *([01]+.?[0-9]*))?\)$/
+      /^rgba?\(\s*([0-9]+)\s*,?\s*([0-9]+)\s*,?\s([0-9]+)\s*(?:[,/]\s*([01]+.?[0-9]*))?\)$/
     ))
   ) {
     [, r, g, b, a = 1] = match;
@@ -39,17 +41,24 @@ module.exports = {
           decl[processed] = true;
           const [rProp, gProp, bProp, aProp] = getProps(decl.prop);
           const [r, g, b, a] = getVars(decl.prop);
-          let rVal, gVal, bVal, aVal;
-          const blendMatch = decl.value.match(
-            /^--blend\(var\(([^ ,()]*)\) *, *var\(([^ ,()]*)\)\)$/
-          );
-          if (blendMatch) {
-            const [r1, g1, b1, a1] = getVars(blendMatch[1]);
-            const [r2, g2, b2, a2] = getVars(blendMatch[2]);
+          let rVal, gVal, bVal, aVal, match;
+          if (
+            (match = decl.value.match(
+              /^--blend\(var\(\s*([^ ,()]*)\)\s*,\s*var\(([^ ,()]*)\s*\)\)$/
+            ))
+          ) {
+            const [r1, g1, b1, a1] = getVars(match[1]);
+            const [r2, g2, b2, a2] = getVars(match[2]);
             rVal = `calc(${r1} * ${a1} + ${r2} * ${a2} - ${r1} * ${a})`;
             gVal = `calc(${g1} * ${a1} + ${g2} * ${a2} - ${g1} * ${a})`;
             bVal = `calc(${b1} * ${a1} + ${b2} * ${a2} - ${b1} * ${a})`;
             aVal = `calc(${a1} + ${a2} - ${a1} * ${a2})`;
+          } else if (
+            (match = decl.value.match(
+              /^var\(\s*([^ ,()]*)\s*,\s*([^ ,()]*)\s*\)$/
+            ))
+          ) {
+            [rVal, gVal, bVal, aVal] = getVars(match[1], colorToRGBA(match[2]));
           } else {
             [rVal, gVal, bVal, aVal] = colorToRGBA(decl.value);
           }
@@ -58,7 +67,7 @@ module.exports = {
             .before(`\n${gProp}: ${gVal}`)
             .before(`\n${bProp}: ${bVal}`)
             .before(`\n${aProp}: ${aVal}`);
-          decl.value = `rgba(${r}, ${g}, ${b}, ${a})`;
+          decl.value = `rgba(${r} ${g} ${b} / ${a})`;
         }
       },
     },
