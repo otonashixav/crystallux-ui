@@ -8,7 +8,6 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "isolatedModules": true,
-    "preserveSymlinks": true,
     "outDir": "./dist",
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
