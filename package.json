@@ -46,25 +46,24 @@
     "@previewjs/cli": "^1.2.0",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
-    "copyfiles": "^2.4.1",
+    "@vanilla-extract/vite-plugin": "^3.1.7",
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-solid": "^0.6.1",
-    "postcss": "^8.4.14",
-    "postcss-cli": "^9.1.0",
-    "postcss-preset-env": "^7.7.1",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "solid-js": "^1.4.3",
-    "stylelint": "^14.8.5",
-    "stylelint-config-standard": "^25.0.0",
     "typescript": "^4.7.3",
-    "typescript-plugin-css-modules": "^3.4.0"
+    "vite": "^2.9.10"
   },
   "peerDependencies": {
     "solid-js": "^1.4.3"
   },
   "browserslist": [
     "defaults and supports proxy"
-  ]
+  ],
+  "dependencies": {
+    "@vanilla-extract/css": "^1.7.1",
+    "@vanilla-extract/css-utils": "^0.1.2"
+  }
 }

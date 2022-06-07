@@ -1,0 +1,238 @@
+/* https://m3.material.io/styles/color/the-color-system/tokens */
+:root {
+  --m3-color-primary: var(--m3-context-color-primary);
+  --m3-color-primary-container: var(--m3-context-color-primary-container);
+  --m3-color-secondary: var(--m3-context-color-secondary);
+  --m3-color-secondary-container: var(--m3-context-color-secondary-container);
+  --m3-color-tertiary: var(--m3-context-color-tertiary);
+  --m3-color-tertiary-container: var(--m3-context-color-tertiary-container);
+  --m3-color-surface: var(--m3-context-color-surface);
+  --m3-color-surface-variant: var(--m3-context-color-surface-variant);
+  --m3-color-background: var(--m3-context-color-background);
+  --m3-color-error: var(--m3-context-color-error);
+  --m3-color-error-container: var(--m3-context-color-error-container);
+  --m3-color-on-primary: var(--m3-context-color-on-primary);
+  --m3-color-on-primary-container: var(--m3-context-color-on-primary-container);
+  --m3-color-on-secondary: var(--m3-context-color-on-secondary);
+  --m3-color-on-secondary-container: var(--m3-context-color-on-secondary-container);
+  --m3-color-on-tertiary: var(--m3-context-color-on-tertiary);
+  --m3-color-on-tertiary-container: var(--m3-context-color-on-tertiary-container);
+  --m3-color-on-surface: var(--m3-context-color-on-surface);
+  --m3-color-on-surface-variant: var(--m3-context-color-on-surface-variant);
+  --m3-color-on-error: var(--m3-context-color-on-error);
+  --m3-color-on-error-container: var(--m3-context-color-on-error-container);
+  --m3-color-on-background: var(--m3-context-color-on-background);
+  --m3-color-outline: var(--m3-context-color-outline);
+  --m3-color-shadow: var(--m3-context-color-shadow);
+  --m3-color-surface-tint: var(--m3-context-color-surface-tint);
+  --m3-color-inverse-surface: var(--m3-context-color-inverse-surface);
+  --m3-color-on-inverse-surface: var(--m3-context-color-on-inverse-surface);
+  --m3-color-inverse-primary: var(--m3-context-color-inverse-primary);
+
+  /* light scheme */
+  --m3-light-color-primary: #6750a4;
+  --m3-light-color-primary-container: #eaddff;
+  --m3-light-color-secondary: #625b71;
+  --m3-light-color-secondary-container: #e8def8;
+  --m3-light-color-tertiary: #7d5260;
+  --m3-light-color-tertiary-container: #ffd8e4;
+  --m3-light-color-surface: #fffbfe;
+  --m3-light-color-surface-variant: #e7e0ec;
+  --m3-light-color-background: #fffbfe;
+  --m3-light-color-error: #b3261e;
+  --m3-light-color-error-container: #f9dedc;
+  --m3-light-color-on-primary: #fff;
+  --m3-light-color-on-primary-container: #21005e;
+  --m3-light-color-on-secondary: #fff;
+  --m3-light-color-on-secondary-container: #1e192b;
+  --m3-light-color-on-tertiary: #fff;
+  --m3-light-color-on-tertiary-container: #370b1e;
+  --m3-light-color-on-surface: #1c1b1f;
+  --m3-light-color-on-surface-variant: #49454e;
+  --m3-light-color-on-error: #fff;
+  --m3-light-color-on-error-container: #370b1e;
+  --m3-light-color-on-background: #1c1b1f;
+  --m3-light-color-outline: #79747e;
+  --m3-light-color-shadow: #000;
+  --m3-light-color-surface-tint: #6750a4;
+  --m3-light-color-inverse-surface: #313033;
+  --m3-light-color-on-inverse-surface: #f4eff4;
+  --m3-light-color-inverse-primary: #d0bcff;
+
+  /* dark scheme */
+  --m3-dark-color-primary: #d0bcff;
+  --m3-dark-color-primary-container: #4f378b;
+  --m3-dark-color-secondary: #ccc2dc;
+  --m3-dark-color-secondary-container: #4a4458;
+  --m3-dark-color-tertiary: #efb8c8;
+  --m3-dark-color-tertiary-container: #633b48;
+  --m3-dark-color-surface: #1c1b1f;
+  --m3-dark-color-surface-variant: #49454f;
+  --m3-dark-color-background: #1c1b1f;
+  --m3-dark-color-error: #f2b8b5;
+  --m3-dark-color-error-container: #8c1d18;
+  --m3-dark-color-on-primary: #371e73;
+  --m3-dark-color-on-primary-container: #eaddff;
+  --m3-dark-color-on-secondary: #332d41;
+  --m3-dark-color-on-secondary-container: #e8def8;
+  --m3-dark-color-on-tertiary: #492532;
+  --m3-dark-color-on-tertiary-container: #ffd8e4;
+  --m3-dark-color-on-surface: #e6e1e5;
+  --m3-dark-color-on-surface-variant: #cac4d0;
+  --m3-dark-color-on-error: #601410;
+  --m3-dark-color-on-error-container: #f9dedc;
+  --m3-dark-color-on-background: #e6e1e5;
+  --m3-dark-color-outline: #938f99;
+  --m3-dark-color-shadow: #000;
+  --m3-dark-color-surface-tint: #d0bcff;
+  --m3-dark-color-inverse-surface: #e6e1e5;
+  --m3-dark-color-on-inverse-surface: #313033;
+  --m3-dark-color-inverse-primary: #6750a4;
+
+  /* defaults */
+  --m3-context-color-primary: var(--m3-light-color-primary);
+  --m3-context-color-primary-container: var(--m3-light-color-primary-container);
+  --m3-context-color-secondary: var(--m3-light-color-secondary);
+  --m3-context-color-secondary-container: var(--m3-light-color-secondary-container);
+  --m3-context-color-tertiary: var(--m3-light-color-tertiary);
+  --m3-context-color-tertiary-container: var(--m3-light-color-tertiary-container);
+  --m3-context-color-surface: var(--m3-light-color-surface);
+  --m3-context-color-surface-variant: var(--m3-light-color-surface-variant);
+  --m3-context-color-background: var(--m3-light-color-background);
+  --m3-context-color-error: var(--m3-light-color-error);
+  --m3-context-color-error-container: var(--m3-light-color-error-container);
+  --m3-context-color-on-primary: var(--m3-light-color-on-primary);
+  --m3-context-color-on-primary-container: var(--m3-light-color-on-primary-container);
+  --m3-context-color-on-secondary: var(--m3-light-color-on-secondary);
+  --m3-context-color-on-secondary-container: var(--m3-light-color-on-secondary-container);
+  --m3-context-color-on-tertiary: var(--m3-light-color-on-tertiary);
+  --m3-context-color-on-tertiary-container: var(--m3-light-color-on-tertiary-container);
+  --m3-context-color-on-surface: var(--m3-light-color-on-surface);
+  --m3-context-color-on-surface-variant: var(--m3-light-color-on-surface-variant);
+  --m3-context-color-on-error: var(--m3-light-color-on-error);
+  --m3-context-color-on-error-container: var(--m3-light-color-on-error-container);
+  --m3-context-color-on-background: var(--m3-light-color-on-background);
+  --m3-context-color-outline: var(--m3-light-color-outline);
+  --m3-context-color-shadow: var(--m3-light-color-shadow);
+  --m3-context-color-surface-tint: var(--m3-light-color-surface-tint);
+  --m3-context-color-inverse-surface: var(--m3-light-color-inverse-surface);
+  --m3-context-color-on-inverse-surface: var(--m3-light-color-on-inverse-surface);
+  --m3-context-color-inverse-primary: var(--m3-light-color-inverse-primary);
+
+  @media (prefers-color-scheme: dark) {
+    --m3-context-color-primary: var(--m3-dark-color-primary);
+    --m3-context-color-primary-container: var(--m3-dark-color-primary-container);
+    --m3-context-color-secondary: var(--m3-dark-color-secondary);
+    --m3-context-color-secondary-container: var(--m3-dark-color-secondary-container);
+    --m3-context-color-tertiary: var(--m3-dark-color-tertiary);
+    --m3-context-color-tertiary-container: var(--m3-dark-color-tertiary-container);
+    --m3-context-color-surface: var(--m3-dark-color-surface);
+    --m3-context-color-surface-variant: var(--m3-dark-color-surface-variant);
+    --m3-context-color-background: var(--m3-dark-color-background);
+    --m3-context-color-error: var(--m3-dark-color-error);
+    --m3-context-color-error-container: var(--m3-dark-color-error-container);
+    --m3-context-color-on-primary: var(--m3-dark-color-on-primary);
+    --m3-context-color-on-primary-container: var(--m3-dark-color-on-primary-container);
+    --m3-context-color-on-secondary: var(--m3-dark-color-on-secondary);
+    --m3-context-color-on-secondary-container: var(--m3-dark-color-on-secondary-container);
+    --m3-context-color-on-tertiary: var(--m3-dark-color-on-tertiary);
+    --m3-context-color-on-tertiary-container: var(--m3-dark-color-on-tertiary-container);
+    --m3-context-color-on-surface: var(--m3-dark-color-on-surface);
+    --m3-context-color-on-surface-variant: var(--m3-dark-color-on-surface-variant);
+    --m3-context-color-on-error: var(--m3-dark-color-on-error);
+    --m3-context-color-on-error-container: var(--m3-dark-color-on-error-container);
+    --m3-context-color-on-background: var(--m3-dark-color-on-background);
+    --m3-context-color-outline: var(--m3-dark-color-outline);
+    --m3-context-color-shadow: var(--m3-dark-color-shadow);
+    --m3-context-color-surface-tint: var(--m3-dark-color-surface-tint);
+    --m3-context-color-inverse-surface: var(--m3-dark-color-inverse-surface);
+    --m3-context-color-on-inverse-surface: var(--m3-dark-color-on-inverse-surface);
+    --m3-context-color-inverse-primary: var(--m3-dark-color-inverse-primary);
+  }
+}
+
+.light {
+  --m3-context-color-primary: var(--m3-light-color-primary);
+  --m3-context-color-primary-container: var(--m3-light-color-primary-container);
+  --m3-context-color-secondary: var(--m3-light-color-secondary);
+  --m3-context-color-secondary-container: var(--m3-light-color-secondary-container);
+  --m3-context-color-tertiary: var(--m3-light-color-tertiary);
+  --m3-context-color-tertiary-container: var(--m3-light-color-tertiary-container);
+  --m3-context-color-surface: var(--m3-light-color-surface);
+  --m3-context-color-surface-variant: var(--m3-light-color-surface-variant);
+  --m3-context-color-background: var(--m3-light-color-background);
+  --m3-context-color-error: var(--m3-light-color-error);
+  --m3-context-color-error-container: var(--m3-light-color-error-container);
+  --m3-context-color-on-primary: var(--m3-light-color-on-primary);
+  --m3-context-color-on-primary-container: var(--m3-light-color-on-primary-container);
+  --m3-context-color-on-secondary: var(--m3-light-color-on-secondary);
+  --m3-context-color-on-secondary-container: var(--m3-light-color-on-secondary-container);
+  --m3-context-color-on-tertiary: var(--m3-light-color-on-tertiary);
+  --m3-context-color-on-tertiary-container: var(--m3-light-color-on-tertiary-container);
+  --m3-context-color-on-surface: var(--m3-light-color-on-surface);
+  --m3-context-color-on-surface-variant: var(--m3-light-color-on-surface-variant);
+  --m3-context-color-on-error: var(--m3-light-color-on-error);
+  --m3-context-color-on-error-container: var(--m3-light-color-on-error-container);
+  --m3-context-color-on-background: var(--m3-light-color-on-background);
+  --m3-context-color-outline: var(--m3-light-color-outline);
+  --m3-context-color-shadow: var(--m3-light-color-shadow);
+  --m3-context-color-surface-tint: var(--m3-light-color-surface-tint);
+  --m3-context-color-inverse-surface: var(--m3-light-color-inverse-surface);
+  --m3-context-color-on-inverse-surface: var(--m3-light-color-on-inverse-surface);
+  --m3-context-color-inverse-primary: var(--m3-light-color-inverse-primary);
+}
+
+.dark {
+  --m3-context-color-primary: var(--m3-dark-color-primary);
+  --m3-context-color-primary-container: var(--m3-dark-color-primary-container);
+  --m3-context-color-secondary: var(--m3-dark-color-secondary);
+  --m3-context-color-secondary-container: var(--m3-dark-color-secondary-container);
+  --m3-context-color-tertiary: var(--m3-dark-color-tertiary);
+  --m3-context-color-tertiary-container: var(--m3-dark-color-tertiary-container);
+  --m3-context-color-surface: var(--m3-dark-color-surface);
+  --m3-context-color-surface-variant: var(--m3-dark-color-surface-variant);
+  --m3-context-color-background: var(--m3-dark-color-background);
+  --m3-context-color-error: var(--m3-dark-color-error);
+  --m3-context-color-error-container: var(--m3-dark-color-error-container);
+  --m3-context-color-on-primary: var(--m3-dark-color-on-primary);
+  --m3-context-color-on-primary-container: var(--m3-dark-color-on-primary-container);
+  --m3-context-color-on-secondary: var(--m3-dark-color-on-secondary);
+  --m3-context-color-on-secondary-container: var(--m3-dark-color-on-secondary-container);
+  --m3-context-color-on-tertiary: var(--m3-dark-color-on-tertiary);
+  --m3-context-color-on-tertiary-container: var(--m3-dark-color-on-tertiary-container);
+  --m3-context-color-on-surface: var(--m3-dark-color-on-surface);
+  --m3-context-color-on-surface-variant: var(--m3-dark-color-on-surface-variant);
+  --m3-context-color-on-error: var(--m3-dark-color-on-error);
+  --m3-context-color-on-error-container: var(--m3-dark-color-on-error-container);
+  --m3-context-color-on-background: var(--m3-dark-color-on-background);
+  --m3-context-color-outline: var(--m3-dark-color-outline);
+  --m3-context-color-shadow: var(--m3-dark-color-shadow);
+  --m3-context-color-surface-tint: var(--m3-dark-color-surface-tint);
+  --m3-context-color-inverse-surface: var(--m3-dark-color-inverse-surface);
+  --m3-context-color-on-inverse-surface: var(--m3-dark-color-on-inverse-surface);
+  --m3-context-color-inverse-primary: var(--m3-dark-color-inverse-primary);
+}
+
+* {
+  --m3-elevation-global: max(var(--m3-elevation-global-1, 0), var(--m3-elevation-global-2, 0));
+}
+
+:not(.elevate) > .elevate {
+  --m3-elevation-global-1: calc(var(--m3-elevation-local, 0) + var(--m3-elevation-global-2, 0));
+
+  & > * {
+    --m3-elevation-global-2: calc(var(--m3-elevation-local, 0) + var(--m3-elevation-global-1, 0));
+  }
+
+  & > .elevate {
+    & > * {
+      --m3-elevation-global-1: calc(var(--m3-elevation-local, 0) + var(--m3-elevation-global-2, 0));
+    }
+
+    & > .elevate {
+      & > * {
+        --m3-elevation-global-2: calc(var(--m3-elevation-local, 0) + var(--m3-elevation-global-1, 0));
+      }
+    }
+  }
+}

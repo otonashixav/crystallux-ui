@@ -1,6 +1,6 @@
 import { ComponentProps, JSX } from "solid-js";
 import { omitProps, useAllProps } from "../../utils";
-import { div } from "./styles.module.css";
+import { div } from "./Box.css";
 
 export type BoxProps = ComponentProps<"div">;
 export function Box(props: BoxProps): JSX.Element {

@@ -1,4 +1,0 @@
-.div {
-  composes: elevate from "../../theme/theme.module.css";
-  background-color: red;
-}
