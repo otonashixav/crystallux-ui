@@ -16,13 +16,11 @@
   "description": "A Component Framework for SolidJS",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pnpm clean && pnpm buildTs && pnpm buildCss",
+    "build": "pnpm clean && pnpm buildTs",
     "buildTs": "tsc && node -e \"require('fs').copyFileSync('./dist/index.js', './dist/index.jsx');\"",
-    "buildCss": "postcss \"./src/**/*.css\" --base ./src --dir ./dist",
     "clean": "rimraf \"./dist/*\"",
-    "lint": "pnpm lintTs && pnpm lintCss",
-    "lintTs": "eslint \"./src\"",
-    "lintCss": "stylelint \"./src/**/*.module.css\""
+    "lint": "pnpm lintTs",
+    "lintTs": "eslint \"./src\""
   },
   "repository": {
     "type": "git",
@@ -53,8 +51,7 @@
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "solid-js": "^1.4.3",
-    "typescript": "^4.7.3",
-    "vite": "^2.9.10"
+    "typescript": "^4.7.3"
   },
   "peerDependencies": {
     "solid-js": "^1.4.3"
@@ -64,6 +61,7 @@
   ],
   "dependencies": {
     "@vanilla-extract/css": "^1.7.1",
-    "@vanilla-extract/css-utils": "^0.1.2"
+    "@vanilla-extract/private": "^1.0.3",
+    "@vanilla-extract/sprinkles": "^1.4.1"
   }
 }

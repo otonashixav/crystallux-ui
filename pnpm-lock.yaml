@@ -5,7 +5,8 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.27.0
   '@typescript-eslint/parser': ^5.27.0
   '@vanilla-extract/css': ^1.7.1
-  '@vanilla-extract/css-utils': ^0.1.2
+  '@vanilla-extract/private': ^1.0.3
+  '@vanilla-extract/sprinkles': ^1.4.1
   '@vanilla-extract/vite-plugin': ^3.1.7
   eslint: ^8.17.0
   eslint-config-prettier: ^8.5.0
@@ -14,17 +15,17 @@ specifiers:
   rimraf: ^3.0.2
   solid-js: ^1.4.3
   typescript: ^4.7.3
-  vite: ^2.9.10
 
 dependencies:
   '@vanilla-extract/css': 1.7.1
-  '@vanilla-extract/css-utils': 0.1.2
+  '@vanilla-extract/private': 1.0.3
+  '@vanilla-extract/sprinkles': 1.4.1_@vanilla-extract+css@1.7.1
 
 devDependencies:
   '@previewjs/cli': 1.2.0
   '@typescript-eslint/eslint-plugin': 5.27.0_kor2e3kwnnzugzo3aovmfcq2la
   '@typescript-eslint/parser': 5.27.0_ud6rd4xtew5bv4yhvkvu24pzm4
-  '@vanilla-extract/vite-plugin': 3.1.7_vite@2.9.10
+  '@vanilla-extract/vite-plugin': 3.1.7
   eslint: 8.17.0
   eslint-config-prettier: 8.5.0_eslint@8.17.0
   eslint-plugin-solid: 0.6.1_ud6rd4xtew5bv4yhvkvu24pzm4
@@ -32,7 +33,6 @@ devDependencies:
   rimraf: 3.0.2
   solid-js: 1.4.3
   typescript: 4.7.3
-  vite: 2.9.10
 
 packages:
 
@@ -328,10 +328,6 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vanilla-extract/css-utils/0.1.2:
-    resolution: {integrity: sha512-qoxIu5E/UhJtoKsPL1JaU9nhTN0Xl5zYV0pScOgsvc3JN46TvTTt0L3GV8x3PQpZP7x3elw8BsC9czYbhJy9Gg==}
-    dev: false
-
   /@vanilla-extract/css/1.7.1:
     resolution: {integrity: sha512-afeJXYd709hanseL3O7dV0BPGvcvMhCJ5HOvu8SaOs1Xa4teMA0UGxYoqIyKpwpqmkOcmMXvWEfeQEs3M3p0DQ==}
     dependencies:
@@ -362,7 +358,15 @@ packages:
   /@vanilla-extract/private/1.0.3:
     resolution: {integrity: sha512-17kVyLq3ePTKOkveHxXuIJZtGYs+cSoev7BlP+Lf4916qfDhk/HBjvlYDe8egrea7LNPHKwSZJK/bzZC+Q6AwQ==}
 
-  /@vanilla-extract/vite-plugin/3.1.7_vite@2.9.10:
+  /@vanilla-extract/sprinkles/1.4.1_@vanilla-extract+css@1.7.1:
+    resolution: {integrity: sha512-aW6CfMMToX4a+baLuVxwcT0FSACjX3xrNt8wdi/3LLRlLAfhyue8OK7kJxhcYNZfydBeWTP59aRy8p5FUTIeew==}
+    peerDependencies:
+      '@vanilla-extract/css': ^1.0.0
+    dependencies:
+      '@vanilla-extract/css': 1.7.1
+    dev: false
+
+  /@vanilla-extract/vite-plugin/3.1.7:
     resolution: {integrity: sha512-qgnvp+YKT5zauggFzW0abzm0P57ST7aGp9Vr3bGP8tnkRyt9OJm6SWm/msC78ZYXLZ0MxQCFtxqPsxqGh0SGKA==}
     peerDependencies:
       vite: ^2.2.3
@@ -371,7 +375,6 @@ packages:
       outdent: 0.8.0
       postcss: 8.4.14
       postcss-load-config: 3.1.4_postcss@8.4.14
-      vite: 2.9.10
     transitivePeerDependencies:
       - ts-node
     dev: true
@@ -2706,30 +2709,6 @@ packages:
       vite: 2.9.10_sass@1.52.1
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /vite/2.9.10:
-    resolution: {integrity: sha512-TwZRuSMYjpTurLqXspct+HZE7ONiW9d+wSWgvADGxhDPPyoIcNywY+RX4ng+QpK30DCa1l/oZgi2PLZDibhzbQ==}
-    engines: {node: '>=12.2.0'}
-    hasBin: true
-    peerDependencies:
-      less: '*'
-      sass: '*'
-      stylus: '*'
-    peerDependenciesMeta:
-      less:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-    dependencies:
-      esbuild: 0.14.42
-      postcss: 8.4.14
-      resolve: 1.22.0
-      rollup: 2.75.3
-    optionalDependencies:
-      fsevents: 2.3.2
     dev: true
 
   /vite/2.9.10_sass@1.52.1:
