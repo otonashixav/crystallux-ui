@@ -11,12 +11,12 @@ export function asRgbaVars<T extends string, U extends Record<string, string>>(
   theme: U,
   property: keyof U extends `${infer I}${"R" | "G" | "B" | "A"}` ? I : never
 ): Record<`${T}${"R" | "G" | "B" | "A"}`, string>;
-export function asRgbaVars<N extends string, K extends string>(
+export function asRgbaVars<N extends string, U extends Record<string, string>>(
   name: N,
   ...[valueOrTheme, property]:
     | [string]
     | [null]
-    | [Record<`${K}${"R" | "G" | "B" | "A"}`, string>, K]
+    | [U, keyof U extends `${infer I}${"R" | "G" | "B" | "A"}` ? I : never]
 ): Record<string, string> | Record<string, null> {
   if (valueOrTheme == null)
     return {
@@ -43,7 +43,7 @@ export function asRgbaVars<N extends string, K extends string>(
   };
 }
 
-export function rgba<T extends Record<string, string>>(
+export function fromRgbaVars<T extends Record<string, string>>(
   theme: T,
   property: keyof T extends `${infer I}${"R" | "G" | "B" | "A"}` ? I : never
 ) {
