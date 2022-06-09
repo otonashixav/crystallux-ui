@@ -7,11 +7,16 @@ export function Box(props: BoxProps): JSX.Element {
   const allProps = useAllProps({ props });
   const spreadProps = omitProps(allProps, ["class"]);
   return (
-    <div
-      class={div}
-      style={{ "--cl-elevation-local": 3 }}
-      classList={{ [allProps.class!]: true }}
-      {...spreadProps}
-    />
+    <div class={div}>
+      <div class={div}>
+        <div class={div}>
+          <div
+            class={div}
+            classList={{ [allProps.class!]: true }}
+            {...spreadProps}
+          ></div>
+        </div>
+      </div>
+    </div>
   );
 }

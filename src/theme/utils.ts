@@ -1,53 +1,25 @@
-export function asRgbaVars<T extends string>(
-  name: T,
-  value: null
-): Record<`${T}${"R" | "G" | "B" | "A"}`, null>;
-export function asRgbaVars<T extends string>(
-  name: T,
-  value: string
-): Record<`${T}${"R" | "G" | "B" | "A"}`, string>;
-export function asRgbaVars<T extends string, U extends Record<string, string>>(
-  name: T,
-  theme: U,
-  property: keyof U extends `${infer I}${"R" | "G" | "B" | "A"}` ? I : never
-): Record<`${T}${"R" | "G" | "B" | "A"}`, string>;
-export function asRgbaVars<N extends string, U extends Record<string, string>>(
-  name: N,
-  ...[valueOrTheme, property]:
-    | [string]
-    | [null]
-    | [U, keyof U extends `${infer I}${"R" | "G" | "B" | "A"}` ? I : never]
-): Record<string, string> | Record<string, null> {
-  if (valueOrTheme == null)
+import { CSSVarFunction } from "@vanilla-extract/private";
+
+export type RGBA<T> = Record<"R" | "G" | "B" | "A", T>;
+export function asRGBA(): RGBA<null>;
+export function asRGBA(value: string): RGBA<string>;
+export function asRGBA(value: RGBA<CSSVarFunction>): RGBA<CSSVarFunction>;
+export function asRGBA(
+  value?: undefined | string | RGBA<CSSVarFunction>
+): RGBA<null> | RGBA<string> | RGBA<CSSVarFunction> {
+  if (value === undefined) return { R: null, G: null, B: null, A: null };
+  if (typeof value === "string")
     return {
-      [`${name}R`]: null,
-      [`${name}G`]: null,
-      [`${name}B`]: null,
-      [`${name}A`]: null,
-    };
-  if (typeof valueOrTheme === "string") {
-    return {
-      [`${name}R`]: `${parseInt(valueOrTheme.slice(1, 3), 16)}`,
-      [`${name}G`]: `${parseInt(valueOrTheme.slice(3, 5), 16)}`,
-      [`${name}B`]: `${parseInt(valueOrTheme.slice(5, 7), 16)}`,
-      [`${name}A`]: `${Number(
-        (parseInt(valueOrTheme.slice(7, 9) || "FF", 16) / 255).toFixed(3)
+      R: `${parseInt(value.slice(1, 3), 16)}`,
+      G: `${parseInt(value.slice(3, 5), 16)}`,
+      B: `${parseInt(value.slice(5, 7), 16)}`,
+      A: `${Number(
+        (parseInt(value.slice(7, 9) || "FF", 16) / 255).toFixed(3)
       )}`,
     };
-  }
-  return {
-    [`${name}R`]: valueOrTheme[`${property!}R`],
-    [`${name}G`]: valueOrTheme[`${property!}G`],
-    [`${name}B`]: valueOrTheme[`${property!}B`],
-    [`${name}A`]: valueOrTheme[`${property!}A`],
-  };
+  return value;
 }
 
-export function fromRgbaVars<T extends Record<string, string>>(
-  theme: T,
-  property: keyof T extends `${infer I}${"R" | "G" | "B" | "A"}` ? I : never
-) {
-  return `rgba(${theme[`${property}R`]} ${theme[`${property}G`]} ${
-    theme[`${property}B`]
-  } / ${theme[`${property}A`]})`;
+export function rgba(value: RGBA<CSSVarFunction>): string {
+  return `rgba(${value.R} ${value.G} ${value.B} / ${value.A})`;
 }

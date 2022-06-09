@@ -1,9 +1,9 @@
 import { MergeProps } from "solid-js";
 import { combineProps } from "./combineProps";
-import { consumePassedProps } from "./passProps";
+import { useProviderProps } from "./PropsProvider";
 
 export * from "./combineProps";
-export * from "./passProps";
+export * from "./PropsProvider";
 export * from "./omitProps";
 
 export function useAllProps<T extends object, D extends T>({
@@ -13,7 +13,7 @@ export function useAllProps<T extends object, D extends T>({
   props?: T;
   defaultProps?: D;
 } = {}): MergeProps<[T, D]> {
-  const allProps = consumePassedProps();
+  const allProps = useProviderProps();
   props && allProps.push(props);
   defaultProps && allProps.unshift(defaultProps);
   return combineProps(...allProps) as MergeProps<[T, D]>;

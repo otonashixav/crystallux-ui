@@ -8,26 +8,26 @@ import {
   splitProps,
 } from "solid-js";
 
-export const PassedPropsContext = createContext();
+export const ProviderPropsContext = createContext();
 
-export function consumePassedProps(): object[] {
-  const passableProps: object[] = [];
+export function useProviderProps(): object[] {
+  const providerProps: object[] = [];
   let owner = getOwner();
-  if (!owner) return passableProps;
-  (owner.context ||= {})[PassedPropsContext.id] = null;
+  if (!owner) return providerProps;
+  (owner.context ||= {})[ProviderPropsContext.id] = null;
   for (owner = owner.owner; owner; owner = owner.owner) {
     if (!owner.context) continue;
-    const props = owner.context[PassedPropsContext.id] as
+    const props = owner.context[ProviderPropsContext.id] as
       | object
       | undefined
       | null;
     if (props === null) break;
-    if (props) passableProps.push(props);
+    if (props) providerProps.push(props);
   }
-  return passableProps;
+  return providerProps;
 }
 
-export function PassProps<T>(
+export function PropsProvider<T>(
   props: FlowProps<T> & { $children?: JSX.Element }
 ): JSX.Element {
   const [, propsWithoutChildren] = splitProps(props, ["children", "$children"]);
@@ -39,7 +39,7 @@ export function PassProps<T>(
           },
         })
       : propsWithoutChildren;
-  return createComponent(PassedPropsContext.Provider, {
+  return createComponent(ProviderPropsContext.Provider, {
     value,
     get children() {
       return props.children;
