@@ -9,8 +9,8 @@ type Props = { readonly [K in string | symbol]?: unknown } & {
   readonly ref?: (ref: unknown) => void;
 };
 
-function isEventHandler(property: string): property is `on${string}` {
-  return property.startsWith("on");
+function isEventHandler(property: unknown): property is `on${string}` {
+  return typeof property === "string" && property.startsWith("on");
 }
 function combineHandlers(
   sources: Props[],
@@ -68,7 +68,7 @@ function combineClassLists(
       get(className) {
         const l = classLists();
         for (let i = l.length - 1; i >= 0; i--) {
-          const v = l[i][className];
+          const v = l[i][className as string];
           if (v !== undefined) return v;
         }
       },
@@ -125,7 +125,7 @@ function combineStyles(
       get(styleName) {
         const s = parsedStyles();
         for (let i = s.length - 1; i >= 0; i--) {
-          const v = s[i][styleName];
+          const v = s[i][styleName as string];
           if (v !== undefined) return v;
         }
       },

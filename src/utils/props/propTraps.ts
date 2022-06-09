@@ -1,8 +1,8 @@
 import { $PROXY } from "solid-js";
 // propTraps from solid-js core
 export const propTraps: ProxyHandler<{
-  get: (k: string) => unknown;
-  has: (k: string) => boolean;
+  get: (k: string | symbol) => unknown;
+  has: (k: string | symbol) => boolean;
   keys: () => string[];
 }> = {
   get(_, property, receiver) {
@@ -28,11 +28,7 @@ export const propTraps: ProxyHandler<{
   ownKeys(_) {
     return _.keys();
   },
-} as ProxyHandler<{
-  get: (k: string | symbol) => unknown;
-  has: (k: string | symbol) => boolean;
-  keys: () => string[];
-}>;
+};
 
 function trueFn() {
   return true;
