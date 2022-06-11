@@ -1,18 +1,18 @@
 import { style } from "@vanilla-extract/css";
-import { color } from "../../theme/color.css";
+import { combinedColor } from "../../theme/color.css";
 import {
   elevatable,
   localElevation,
   totalElevation,
 } from "../../theme/elevation.css";
-import { rgba } from "../../theme/utils";
+import { rtl } from "../../theme/selectorVars.css";
 
 export const div = style([
   {
-    backgroundColor: rgba(color.primary),
+    backgroundColor: combinedColor.primary,
     border: `black solid calc(${totalElevation} * 1px)`,
     vars: {
-      [localElevation]: "1",
+      [localElevation]: rtl("1"),
     },
   },
   elevatable,

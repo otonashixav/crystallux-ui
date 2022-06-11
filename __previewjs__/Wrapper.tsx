@@ -2,7 +2,7 @@
 import { JSX } from "solid-js";
 import "../src";
 import { PropsProvider } from "../src";
-import { dark, light } from "../src/theme/styles.css";
+import { dark, light } from "../src/theme/color.css";
 
 export function Wrapper(props: { children: JSX.Element }) {
   return (

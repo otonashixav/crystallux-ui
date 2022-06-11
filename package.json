@@ -64,5 +64,12 @@
     "@vanilla-extract/private": "^1.0.3",
     "@vanilla-extract/sprinkles": "^1.4.1",
     "csstype": "^3.1.0"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "vite"
+      ]
+    }
   }
 }
