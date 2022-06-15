@@ -1,0 +1,42 @@
+import { createThemeContract } from "@vanilla-extract/css";
+
+export const m3 = createThemeContract({
+  color: {
+    primary: null,
+    primaryContainer: null,
+    secondary: null,
+    secondaryContainer: null,
+    tertiary: null,
+    tertiaryContainer: null,
+    surface: null,
+    surfaceVariant: null,
+    background: null,
+    error: null,
+    errorContainer: null,
+    onPrimary: null,
+    onPrimaryContainer: null,
+    onSecondary: null,
+    onSecondaryContainer: null,
+    onTertiary: null,
+    onTertiaryContainer: null,
+    onSurface: null,
+    onSurfaceVariant: null,
+    onError: null,
+    onErrorContainer: null,
+    onBackground: null,
+    outline: null,
+    shadow: null,
+    surfaceTint: null,
+    inverseSurface: null,
+    inverseOnSurface: null,
+    inversePrimary: null,
+  },
+  state: {},
+  typescale: {},
+  shape: {
+    corner: {},
+  },
+  size: {
+    outline: "1px",
+  },
+});
