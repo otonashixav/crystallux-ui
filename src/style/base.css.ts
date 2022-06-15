@@ -33,7 +33,6 @@ function mapObject<T extends Record<string, unknown>, U>(
 export const outlineSize = createVar();
 export const outlineColor = createVar();
 export const surfaceTintColor = createVar();
-export const surfaceTintOpacity = createVar();
 export const stateOpacity = createVar();
 export const onColor = createVar();
 
@@ -47,7 +46,7 @@ export const on = styleVariants(m3.color, (value) => [
   { vars: { [onColor]: value } },
 ]);
 
-export const baseOverlay = style({
+export const enableOverlay = style({
   position: "relative",
   "::before": {
     content: '""',
@@ -59,35 +58,21 @@ export const baseOverlay = style({
     bottom: 0,
   },
 });
-export const baseStateOverlay = style([
-  baseOverlay,
-  {
-    "::before": {
-      backgroundColor: rgba(onColor, fallbackVar(stateOpacity, "0")),
-    },
+export const enableStateOverlay = style({
+  "::before": {
+    backgroundColor: rgba(onColor, fallbackVar(stateOpacity, "0")),
   },
-]);
-export const baseOutline = style([
-  baseOverlay,
-  {
-    "::before": {
-      borderColor: outlineColor,
-      borderStyle: "solid",
-      borderWidth: outlineSize,
-    },
+});
+export const enableOutline = style({
+  outlineColor: outlineColor,
+  outlineStyle: "solid",
+  outlineWidth: outlineSize,
+});
+export const enableElevationOverlay = style({
+  "::before": {
+    boxShadow: `inset 0 100vh ${surfaceTintColor}`,
   },
-]);
-export const baseElevationOverlay = style([
-  baseOverlay,
-  {
-    "::before": {
-      boxShadow: `inset 0 100vh ${rgba(
-        surfaceTintColor,
-        fallbackVar(surfaceTintOpacity, "0")
-      )}`,
-    },
-  },
-]);
-export const baseElevationShadow = style({
+});
+export const enableElevationShadow = style({
   boxShadow: ``,
 });

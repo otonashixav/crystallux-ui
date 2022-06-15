@@ -20,7 +20,7 @@
     "buildTs": "tsc && node -e \"require('fs').copyFileSync('./dist/index.js', './dist/index.jsx');\"",
     "clean": "rimraf \"./dist/*\"",
     "lint": "pnpm lintTs",
-    "lintTs": "eslint \"./src\""
+    "lintTs": "tsc --noEmit; eslint \"./src\""
   },
   "repository": {
     "type": "git",

@@ -8,6 +8,7 @@
     "moduleResolution": "node",
     "preserveSymlinks": true,
     "forceConsistentCasingInFileNames": true,
+    "exactOptionalPropertyTypes": true,
     "strict": true,
     "isolatedModules": true,
     "outDir": "./dist",
