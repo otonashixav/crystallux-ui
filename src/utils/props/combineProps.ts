@@ -47,22 +47,13 @@ function combineClasses(sources: Props[]) {
 function combineClassLists(
   sources: Props[]
 ): Record<string, boolean | undefined> {
-  const classLists = createMemo(
-    () => {
-      const lists: Record<string, boolean | undefined>[] = [];
-      for (const { classList } of sources) {
-        classList && lists.push(classList);
-      }
-      return lists;
-    },
-    undefined,
-    {
-      equals: (prev, next) =>
-        prev &&
-        prev.length === next.length &&
-        prev.every((v, i) => v === next[i]),
+  const classLists = createMemo(() => {
+    const lists: Record<string, boolean | undefined>[] = [];
+    for (const { classList } of sources) {
+      classList && lists.push(classList);
     }
-  );
+    return lists;
+  });
   return new Proxy(
     {
       get(className) {
@@ -103,22 +94,13 @@ function parseStyle(style: string | JSX.CSSProperties): JSX.CSSProperties {
 function combineStyles(
   sources: Props[]
 ): JSX.CSSProperties | string | undefined {
-  const styles = createMemo(
-    () => {
-      const styles: (Record<string, boolean | undefined> | string)[] = [];
-      for (const { style } of sources) {
-        style && styles.push(style);
-      }
-      return styles;
-    },
-    undefined,
-    {
-      equals: (prev, next) =>
-        prev &&
-        prev.length === next.length &&
-        prev.every((v, i) => v === next[i]),
+  const styles = createMemo(() => {
+    const styles: (Record<string, boolean | undefined> | string)[] = [];
+    for (const { style } of sources) {
+      style && styles.push(style);
     }
-  );
+    return styles;
+  });
   const parsedStyles = createMemo(() => styles().map(parseStyle));
   return new Proxy(
     {
