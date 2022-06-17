@@ -1,6 +1,6 @@
 import { createThemeContract } from "@vanilla-extract/css";
 
-export const m3 = createThemeContract({
+export const tokens = createThemeContract({
   color: {
     primary: null,
     primaryContainer: null,
@@ -31,12 +31,18 @@ export const m3 = createThemeContract({
     inverseOnSurface: null,
     inversePrimary: null,
   },
-  state: {},
+  state: {
+    dragged: { overlay: { opacity: null } },
+    pressed: { overlay: { opacity: null } },
+    focus: { overlay: { opacity: null } },
+    hover: { overlay: { opacity: null } },
+    disabled: { content: { opacity: null }, container: { opacity: null } },
+  },
   typescale: {},
   shape: {
     corner: {},
   },
   size: {
-    outline: "1px",
+    outline: null,
   },
 });

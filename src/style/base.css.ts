@@ -1,78 +1,103 @@
 import {
-  createVar,
-  fallbackVar,
+  assignVars,
+  createGlobalTheme,
+  createThemeContract,
+  globalStyle,
   style,
-  styleVariants,
 } from "@vanilla-extract/css";
-import { m3 } from "./tokens.css";
-import { rgba } from "./utils";
+import { tokens } from "./tokens.css";
+import { omit, rgba } from "./utils";
 
-function pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K> {
-  const res = {} as Pick<T, K>;
-  for (const key of keys) res[key] = obj[key];
-  return res;
-}
+export const m3Properties = createThemeContract({
+  containerColor: null,
+  containerOpacity: null,
+  contentColor: null,
+  contentOpacity: null,
+  stateOverlayColor: null,
+  stateOverlayOpacity: null,
+  outlineWidth: null,
+  outlineColor: null,
+  outlineOpacity: null,
+  elevationOverlayColor: null,
+  elevationOverlayOpacity: null,
+  elevationShadow: null,
+});
 
-function omit<T, K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K> {
-  const res = { ...obj };
-  for (const key of keys) delete res[key];
-  return res;
-}
+createGlobalTheme(":root", m3Properties, {
+  containerColor: tokens.color.background,
+  containerOpacity: "1",
+  contentColor: tokens.color.onBackground,
+  contentOpacity: "1",
+  stateOverlayColor: m3Properties.contentColor,
+  stateOverlayOpacity: "0",
+  outlineWidth: tokens.size.outline,
+  outlineColor: "0 0 0",
+  outlineOpacity: "0",
+  elevationOverlayColor: tokens.color.surfaceTint,
+  elevationOverlayOpacity: "0",
+  elevationShadow: "0 0",
+});
 
-function mapObject<T extends Record<string, unknown>, U>(
-  obj: T,
-  map: (...args: { [K in keyof T]: [value: T[K], key: K] }[keyof T]) => U
-): Record<keyof T, U> {
-  const res = {} as Record<keyof T, U>;
-  for (const key in obj) {
-    res[key] = map(obj[key], key);
-  }
-  return res;
-}
+globalStyle("body", {
+  backgroundColor: rgba(
+    m3Properties.containerColor,
+    m3Properties.containerOpacity
+  ),
+  color: rgba(m3Properties.contentColor, m3Properties.contentOpacity),
+});
 
-export const outlineSize = createVar();
-export const outlineColor = createVar();
-export const surfaceTintColor = createVar();
-export const stateOpacity = createVar();
-export const onColor = createVar();
+export const m3Container = style({
+  vars: assignVars(omit(m3Properties, ["contentColor", "contentOpacity"]), {
+    containerColor: "0 0 0",
+    containerOpacity: "0",
+    stateOverlayColor: m3Properties.contentColor,
+    stateOverlayOpacity: "0",
+    outlineWidth: "0",
+    outlineColor: "0 0 0",
+    outlineOpacity: "0",
+    elevationOverlayColor: tokens.color.surfaceTint,
+    elevationOverlayOpacity: "0",
+    elevationShadow: "0 0",
+  }),
+  backgroundColor: rgba(
+    m3Properties.containerColor,
+    m3Properties.containerOpacity
+  ),
+  color: rgba(m3Properties.contentColor, m3Properties.contentOpacity),
+  boxShadow: `inset 0 99999px ${rgba(
+    m3Properties.stateOverlayColor,
+    m3Properties.stateOverlayOpacity
+  )}, inset 0 0 ${m3Properties.outlineWidth} ${rgba(
+    m3Properties.outlineColor,
+    m3Properties.outlineOpacity
+  )}, inset 0 99999px ${rgba(
+    m3Properties.elevationOverlayColor,
+    m3Properties.elevationOverlayOpacity
+  )}, ${m3Properties.elevationShadow}`,
+});
 
-export const container = styleVariants(m3.color, (value) => ({
-  vars: { backgroundColor: value },
-}));
+export const interactableProperties = createThemeContract({
+  hover: {},
+  focus: {},
+  pressed: {},
+});
+export const m3Interactable = style({
+  "@supports": {
+    "selector(:focus-visible)": {
+      selectors: {
+        "&:focus": {},
+        "&:focus-visible": {},
+      },
+    },
+  },
+  selectors: {
+    "body:not(body[data-no-hover]) &[data-hover]": {},
 
-export const onBase = style({ color: onColor });
-export const on = styleVariants(m3.color, (value) => [
-  onBase,
-  { vars: { [onColor]: value } },
-]);
+    "&:focus": {},
 
-export const enableOverlay = style({
-  position: "relative",
-  "::before": {
-    content: '""',
-    borderRadius: "inherit",
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
+    "&[data-pressed]": {},
+    "&[data-dragged]": {},
+    "&:disabled": {},
   },
 });
-export const enableStateOverlay = style({
-  "::before": {
-    backgroundColor: rgba(onColor, fallbackVar(stateOpacity, "0")),
-  },
-});
-export const enableOutline = style({
-  outlineColor: outlineColor,
-  outlineStyle: "solid",
-  outlineWidth: outlineSize,
-});
-export const enableElevationOverlay = style({
-  "::before": {
-    boxShadow: `inset 0 100vh ${surfaceTintColor}`,
-  },
-});
-export const enableElevationShadow = style({
-  boxShadow: ``,
-});
+export const m3Elevated = style({});
